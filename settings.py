@@ -5,10 +5,10 @@
 EGO = 14437549
 
 #Number of hops for snowball collection
-HOPS = 3
+HOPS = 4
 
 
-CONNECTION_NO = 20
+CONNECTION_NO = 10
 
 
 METADATA_PATH = "accounts/metadata/"
