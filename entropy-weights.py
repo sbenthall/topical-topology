@@ -21,21 +21,11 @@ user_entropies = entropy(user_topic_matrix)
 
 weights,residue,rank,singulars = numpy.linalg.lstsq(normalize(user_topic_matrix),user_entropies)
 
-# the histogram of the data
-n, bins, patches = plt.hist(weights, 50)
-print(n)
-plt.title("Entropy Weights Histogram")
-plt.savefig("entropy_weights_histogram.png", format='png')
-plt.clf()
-
 topic_usage = sum(normalize(user_topic_matrix))
-axes(xscale='log',yscale='log')
-plt.plot(weights,topic_usage,'ro')
-plt.title('Entropy Weight vs. Usage')
-plt.savefig("entropy_usage_plot.png", format='png')
 
+histify("Entropy Weights",weights)
 
-
+scatterfy("Entropy Weight","Usage",weights,topic_usage,xlog=True,ylog=True,symbol="ro")
 
 
 
