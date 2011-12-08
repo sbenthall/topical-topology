@@ -82,3 +82,16 @@ def histify(label, data, bins=50):
     plt.title("%s Histogram" % label)
     plt.savefig("%s_histogram.png" % label.lower(), format='png')
     plt.clf()
+
+def scatterfy(xlabel,ylabel,xdata,ydata,xlog=False,ylog=False,symbol='bo'):
+    if xlog:
+        axes(xscale='log')
+
+    if ylog:
+        axes(yscale='log')
+
+    #axis([min(entropies), max(entropies), 0, max(followers)*1.1])
+    plt.plot(xdata,ydata,symbol)
+    plt.title('%s vs. %s' % (xlabel,ylabel))
+    plt.savefig("%s_%s_plot.png" % (xlabel.lower(), ylabel.lower()), format='png')
+    plt.clf()
