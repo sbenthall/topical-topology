@@ -22,10 +22,7 @@ def main():
     print(entropies)
 
     # the histogram of the data
-    n, bins, patches = pyplot.hist(entropies, 50)
-    print(n)
-    pyplot.title("Entropy Histogram")
-    pyplot.savefig("entropy_histogram.png", format='png')
+    histify("Entropy",entropies)
 
     followers = user_metadata_matrix[:,0]
     print(followers)

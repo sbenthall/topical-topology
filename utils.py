@@ -4,7 +4,8 @@ import simplejson as json
 import time
 from twitter import TwitterHTTPError
 import numpy
-
+import matplotlib.pyplot as plt
+from pylab import axes,axis
 
 def load_snowball():
     if os.path.isfile("%s" % (SNOWBALL_PATH)):
@@ -74,3 +75,10 @@ EPSILON = 0.0000000000000001
 def entropy(dist):
     nd = normalize(dist) + EPSILON
     return 0 - sum((nd * numpy.log(nd)).T).T
+
+def histify(label, data, bins=50):
+    n, bins, patches = plt.hist(data, bins)
+    print(n)
+    plt.title("%s Histogram" % label)
+    plt.savefig("%s_histogram.png" % label.lower(), format='png')
+    plt.clf()
