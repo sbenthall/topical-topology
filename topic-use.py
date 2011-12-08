@@ -19,33 +19,6 @@ user_topic_matrix = numpy.load('user_topic_matrix.npy')
 
 topic_usage = sum(normalize(user_topic_matrix))
 
-# the histogram of the data
-n, bins, patches = plt.hist(topic_usage, 50)
-print(n)
-plt.title("Topic Usage Histogram")
-plt.savefig("topic_usage_histogram.png", format='png')
+histify("Topic Usage",topic_usage)
 
-
-TOPIC_PATH = 'topic-keys.txt'
-
-TOPIC_PATTERN = "(\d*)\s*(0[.]\d*)\s(.*)\n"
-
-#import topics file to dict
-topics = open(TOPIC_PATH)
-topic_dict = dict()
-
-for line in topics.readlines():
-    #print line
-    topic = re.findall(TOPIC_PATTERN, line)
-    for index, value, terms in topic:
-        topic_dict[index] = terms
-
-
-#write sorted use
-sorted_usage = sorted(enumerate(topic_usage), key=itemgetter(1))
-
-sorted_usage_file = open(SORTED_USAGE_TOPIC_PATH, 'w')
-
-for index, topic in enumerate(sorted_usage):
-    print index, '\t', topic[0], '\t', topic_dict.get(str(topic[0]))
-    sorted_usage_file.write("%d\t%d\t%s\n" % (index, topic[0], topic_dict.get(str(topic[0]))))
+sort_and_save(topic_usage,SORTED_USAGE_TOPIC_PATH)

@@ -6,6 +6,8 @@ from twitter import TwitterHTTPError
 import numpy
 import matplotlib.pyplot as plt
 from pylab import axes,axis
+import re
+from operator import itemgetter
 
 def load_snowball():
     if os.path.isfile("%s" % (SNOWBALL_PATH)):
@@ -96,3 +98,30 @@ def scatterfy(xlabel,ylabel,xdata,ydata,xlog=False,ylog=False,symbol='bo'):
     plt.title('%s vs. %s' % (xlabel,ylabel))
     plt.savefig("%s_%s_plot.png" % (xlabel.lower().replace(" ","_"), ylabel.lower().replace(" ","_")), format='png')
     plt.clf()
+
+
+TOPIC_PATH = 'topic-keys.txt'
+TOPIC_PATTERN = "(\d*)\s*(0[.]\d*)\s(.*)\n"
+
+
+def get_topic_dict():
+    topics = open(TOPIC_PATH)
+    topic_dict = dict()
+
+    for line in topics.readlines():
+        topic = re.findall(TOPIC_PATTERN, line)
+        for index, value, terms in topic:
+            topic_dict[index] = terms
+
+    return topic_dict
+
+def sort_and_save(data,file_name):
+    topic_dict = get_topic_dict()
+
+    sorted_data = sorted(enumerate(data), key=itemgetter(1))
+
+    sorted_file = open(file_name, 'w')
+
+    for index, topic in enumerate(sorted_data):
+        print index, '\t', topic[0], '\t', topic_dict.get(str(topic[0]))
+        sorted_file.write("%d\t%d\t%s\n" % (index, topic[0], topic_dict.get(str(topic[0]))))
