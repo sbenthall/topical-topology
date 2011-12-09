@@ -125,3 +125,5 @@ def sort_and_save(data,file_name):
     for index, topic in enumerate(sorted_data):
         print index, '\t', topic[0], '\t', topic_dict.get(str(topic[0]))
         sorted_file.write("%d\t%d\t%s\n" % (index, topic[0], topic_dict.get(str(topic[0]))))
+
+    return sorted_data
