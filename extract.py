@@ -18,12 +18,18 @@ URL_REGEX = "http\://\S*"
 def clean(tweet):
     clean_tweet = re.sub(URL_REGEX, '', tweet)
     clean_tweet = re.sub("[\n\r\t]",' ',clean_tweet)
+
     #clean out retweet 'RT'
     clean_tweet = re.sub("^RT ",'',clean_tweet)
+    clean_tweet = re.sub(" rt ",' ',clean_tweet)
+    clean_tweet = re.sub(" RT ",' ',clean_tweet)
+    clean_tweet = re.sub(" ff ",' ',clean_tweet)
+    clean_tweet = re.sub(" FF ",' ',clean_tweet)
 
     #remove usernames
     clean_tweet = re.sub("@(\w*)",'',clean_tweet)
     
+    #collapse contractions
     clean_tweet = re.sub("'ll",'ll',clean_tweet)
     clean_tweet = re.sub("'ve",'ve',clean_tweet)
     clean_tweet = re.sub("'t",'t',clean_tweet)
