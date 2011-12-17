@@ -118,12 +118,12 @@ def get_topic_dict():
 def sort_and_save(data,file_name):
     topic_dict = get_topic_dict()
 
-    sorted_data = sorted(enumerate(data), key=itemgetter(1))
+    sorted_data = sorted(enumerate(data), key=lambda x: -x[1])
 
     sorted_file = open(file_name, 'w')
 
     for index, topic in enumerate(sorted_data):
         print index, '\t', topic[0], '\t', topic_dict.get(str(topic[0]))
-        sorted_file.write("%d\t%d\t%s\n" % (index, topic[0], topic_dict.get(str(topic[0]))))
+        sorted_file.write("%d\t%d\t%d\t%s\n" % (index, topic[0], topic[1], topic_dict.get(str(topic[0]))))
 
     return sorted_data
